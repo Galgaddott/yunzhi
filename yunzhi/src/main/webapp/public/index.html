@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <style>
+        *{
+            margin:0px;
+        }
+        html,body{
+            width: 100%;
+            height: 100%;
+        }
+        #div1{
+            height: 300px;
+            width: 200px;
+            margin: 50px auto;
+            border: 1px solid blueviolet;
+
+        }
+
+        #btn1{
+                width: 190px;
+                height: 50px;
+                line-height: 50px;
+                text-align: center;
+                background-color: #FF9800;
+                border: none;
+                margin: 20px 0 0 5px;
+        }
+
+        #span1{
+                font-size: 25px;
+                text-align: left;
+        }
+        #account{
+
+                width: 190px;
+                height: 30px;
+                margin: 20px 0 0 5px;
+                border-bottom: 1px solid #000;
+                border-top: 0px;
+                border-left: 0px;
+                border-right: 0px;
+        }
+
+        #password{
+                width: 190px;
+                height: 30px;
+                margin: 20px 0 0 5px;
+                border-bottom: 1px solid #000;
+                border-top: 0px;
+                border-left: 0px;
+                border-right: 0px;
+
+        }
+    
+    </style>
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+
+    <script>
+        $(function(){
+            $("#btn1").click(function(){
+            $.ajax({
+                url:"" ,
+                type:post,
+                data:{accoun:$("#account").val(),password:$("#password").val()},
+                dataType:JSON,
+                success: function(result) {
+                    console.log(result);
+                }
+
+            });
+
+         
+            
+        });    
+        
+        });
+    
+        
+    </script>
+
+
+</head>
+
+<body>
+    
+    <div id="div1">
+        <span id="span1">登录</span><br>
+        <input type="text" name="account" placeholder="学号或工号" id="account" /><br>
+        <input type="password" name = "password" placeholder="密码" id="password"/> <br>
+        <button id="btn1">登录</button>        
+    </div>
+
+
+
+
+</body>
+</html>

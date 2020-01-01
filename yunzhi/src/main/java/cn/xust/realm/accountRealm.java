@@ -17,13 +17,13 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import cn.xust.pojo.User;
-
+import cn.xust.serviceimpl.UserServiceImpl;
 import cn.xust.utils.EncryptKit;
 
 public class accountRealm extends AuthorizingRealm {
 	   //注入Service层
 		@Autowired
-//	    private UserServiceImpl userService;
+     private UserServiceImpl userService;
 	
 	//授权
 	//当用户进入权限页面时就会调用此方法
@@ -47,14 +47,14 @@ public class accountRealm extends AuthorizingRealm {
 		Set<String> roles = new HashSet<>();
 		//1为老师 0为普通用户
 		
-//		if(1==user.getRole()) {
-//			
-//			roles.add("teacher");
-//		}else {
-//			
-//			roles.add("student");
-//			
-//		}
+		if(1==user.getStatus()) {
+			
+			roles.add("teacher");
+		}else {
+			
+			roles.add("student");
+			
+		}
 		
 		
 		SimpleAuthorizationInfo info = new SimpleAuthorizationInfo(roles);
@@ -80,15 +80,15 @@ public class accountRealm extends AuthorizingRealm {
 		else userName = account;
 		
 		//进行数据查询密码
-//		String passWord = userService.selectPassword(userName, email);
+		String passWord = userService.selectPassword(userName, email);
 	
-//		System.out.println("查出来的密码是:  "+passWord);
+		System.out.println("查出来的密码是:  "+passWord);
 		
 		//返回认证信息   
-//			SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(account,passWord,this.getName());
+		SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(account,passWord,this.getName());
 			
-		return null;
-//				return simpleAuthenticationInfo;
+
+				return simpleAuthenticationInfo;
 
 	}
 
