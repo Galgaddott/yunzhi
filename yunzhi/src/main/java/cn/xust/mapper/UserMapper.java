@@ -6,13 +6,15 @@ import cn.xust.pojo.User;
 
 public interface UserMapper {
 	//多参数入参
-	User selectSingle(@Param("userName") String userName,@Param("passWord") String passWord,@Param("email") String email);
+	User selectSingle(@Param("account") String account,@Param("password") String password);
 	
 	int  addSingle(User user);
 	
-	String selectPassword(@Param("userName") String userName,@Param("email") String email);
+	String selectPassword(@Param("account") String account,@Param("email") String email);
 	
     int uploadAVATARURL(User user);
     
     int updateUser(User user);
+    
+    int selectMajorId(@Param("majorName") String majorName);
 }

@@ -19,7 +19,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import cn.xust.pojo.User;
 import cn.xust.serviceimpl.UserServiceImpl;
 import cn.xust.utils.EncryptKit;
-
+/**
+ * shiro认证授权处理类
+ * last time 2020/1/2
+ * add by galgaddott
+ *
+ */
 public class accountRealm extends AuthorizingRealm {
 	   //注入Service层
 		@Autowired
@@ -68,19 +73,8 @@ public class accountRealm extends AuthorizingRealm {
 		//获取账号
 		String account = (String) token.getPrincipal();
 		
-		System.out.println("打印身份"+token.getPrincipal());
-		String email = null;
-		String userName = null;
-		
-		//进行正则判断是用 用户名还是邮箱登录
-		Matcher matcher= Pattern.compile("\\w{3,20}\\@\\w+\\.((com)|(cn))").matcher(account);
-		
-		if(matcher.matches()) 
-			email = account;
-		else userName = account;
-		
 		//进行数据查询密码
-		String passWord = userService.selectPassword(userName, email);
+		String passWord = userService.selectPassword(account,null);
 	
 		System.out.println("查出来的密码是:  "+passWord);
 		

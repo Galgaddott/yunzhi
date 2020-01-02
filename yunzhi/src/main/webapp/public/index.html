@@ -65,10 +65,11 @@
         $(function(){
             $("#btn1").click(function(){
             $.ajax({
-                url:"" ,
-                type:post,
-                data:{accoun:$("#account").val(),password:$("#password").val()},
-                dataType:JSON,
+                url: "http://localhost:8888/yunzhi/user/login" ,
+                type: "post",
+                data: JSON.stringify({"account":$("#account").val(),"password":$("#password").val()}),
+                dataType: "JSON",
+                contentType: "application/json;charset=UTF-8",
                 success: function(result) {
                     console.log(result);
                 }
@@ -93,7 +94,8 @@
         <span id="span1">登录</span><br>
         <input type="text" name="account" placeholder="学号或工号" id="account" /><br>
         <input type="password" name = "password" placeholder="密码" id="password"/> <br>
-        <button id="btn1">登录</button>        
+        <button id="btn1">登录</button><br>
+        <span>还没有账号? &nbsp;&nbsp;<a href="./register.html" style="color: #C2E2FC;">注册一个</a><span>       
     </div>
 
 

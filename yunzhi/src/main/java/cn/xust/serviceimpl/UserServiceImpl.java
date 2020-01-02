@@ -27,12 +27,11 @@ public class UserServiceImpl implements UserService{
 	/*先加密在匹配
 	 * 成功返回User 失败返回null 
 	 * */
-	@Override
-	public User login(String userName, String passWord,String email) {
+	public User login(String account, String password) {
 		User user = null;
 		//进行md5加密
-		passWord  = EncryptKit.MD5(passWord);
-		     user = userMapper.selectSingle(userName, passWord,email);
+		password  = EncryptKit.MD5(password);
+		     user = userMapper.selectSingle(account, password);
 		return user;
 	}
 	
@@ -44,14 +43,14 @@ public class UserServiceImpl implements UserService{
 	 * */
 	@Override
 	public User register(User user) {
-		 //先查重
-		if( userMapper.selectPassword(user.getAccount(), user.getEmail())!=null )
+		 //先根据学号/工号 和邮箱进行查重
+		if( (userMapper.selectPassword(user.getAccount(), user.getEmail())!=null) || user.getMajor()<0 )
 		  return null;
 		else
 		{
 			//正式进行注册
 			if (userMapper.addSingle(user)>0)
-				return userMapper.selectSingle(user.getAccount(), user.getPassword(),user.getEmail());
+				return userMapper.selectSingle(user.getAccount(), user.getPassword());
 			else
 				return null;
 			
@@ -67,39 +66,49 @@ public class UserServiceImpl implements UserService{
 	 * */
 	
 	@Override
-	public String selectPassword(String userName, String email) {
+	public String selectPassword(String account,String email) {
 		
-		return userMapper.selectPassword(userName, email);
+		return userMapper.selectPassword(account,email);
+	}
+
+	/**
+	 * 根据专业名字查询专业的id
+	 * 			查询不到返回-1
+	 */
+	
+	@Override
+	public int selectMajorId(String majorName) {
+		return userMapper.selectMajorId(majorName);
 	}
 
 	
-	
-	/**
-	 * 用户上传头像 
-	 * 成功返回true
-	 * 失败返回false
-	 */
-	@Override
-	public boolean uploadAVATARUR(User user) {
-		
-		int flag = userMapper.uploadAVATARURL(user);
-		
-		return flag>0?true:false;
-		
-	}
-	/**
-	 * 修改用户信息
-	 * 成功返回true
-	 * 失败返回false
-	 */
-	@Override
-	public boolean updateUser(User user) {
-		
-		int flag = userMapper.updateUser(user);
-		
-		
-		return flag>0?true:false;
-	}
+//	
+//	/**
+//	 * 用户上传头像 
+//	 * 成功返回true
+//	 * 失败返回false
+//	 */
+//	@Override
+//	public boolean uploadAVATARUR(User user) {
+//		
+//		int flag = userMapper.uploadAVATARURL(user);
+//		
+//		return flag>0?true:false;
+//		
+//	}
+//	/**
+//	 * 修改用户信息
+//	 * 成功返回true
+//	 * 失败返回false
+//	 */
+//	@Override
+//	public boolean updateUser(User user) {
+//		
+//		int flag = userMapper.updateUser(user);
+//		
+//		
+//		return flag>0?true:false;
+//	}
 	
 	
 

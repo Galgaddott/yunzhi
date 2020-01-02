@@ -13,11 +13,11 @@ public class User {
 	private String nickName;
 	private String realName;
 	private int major;
+	private String majorName;//为了方便映射补加字段 add by galgaddott
 	private String email;
 	private String avatarUrl;
 	private int position;
 	private int status;
-	
 	public int getUuid() {
 		return uuid;
 	}
@@ -54,6 +54,12 @@ public class User {
 	public void setMajor(int major) {
 		this.major = major;
 	}
+	public String getMajorName() {
+		return majorName;
+	}
+	public void setMajorName(String majorName) {
+		this.majorName = majorName;
+	}
 	public String getEmail() {
 		return email;
 	}
@@ -78,8 +84,8 @@ public class User {
 	public void setStatus(int status) {
 		this.status = status;
 	}
-	public User(int uuid, String account, String password, String nickName, String realName, int major, String email,
-			String avatarUrl, int position, int status) {
+	public User(int uuid, String account, String password, String nickName, String realName, int major,
+			String majorName, String email, String avatarUrl, int position, int status) {
 		super();
 		this.uuid = uuid;
 		this.account = account;
@@ -87,6 +93,7 @@ public class User {
 		this.nickName = nickName;
 		this.realName = realName;
 		this.major = major;
+		this.majorName = majorName;
 		this.email = email;
 		this.avatarUrl = avatarUrl;
 		this.position = position;
@@ -95,10 +102,8 @@ public class User {
 	
 	
 	public User() {
-		
+	
 	}
-	
-	
 	
 	
 }

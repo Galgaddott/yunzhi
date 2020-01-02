@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper  namespace="cn.xust.mapper.UserMapper">
+	
+		
+		<!-- 根据用户名（邮箱）和密码查询用户是否存在 -->
+		
+		
+		<select id="selectSingle" resultType="cn.xust.pojo.User">
+		select *  from user where PASSWORD = #{password} and ACCOUNT = #{account}
+		</select>
+		
+	   
+	   <!-- 用于用户账户注册-->
+	   <!-- 动态注册 -->
+	   <insert id="addSingle" parameterType="cn.xust.pojo.User" >
+	   insert into user(ACCOUNT ,PASSWORD ,NICK_NAME,REAL_NAME,MAJOR,EMAIL,POSITION,STATUS) 
+	   values(#{account},#{password},#{nickName},#{realName},#{major},#{email},#{position},#{status})
+	   </insert>
+	   
+	   <!-- 动态根据 学号/工号 查询密码 -->
+	   <select id="selectPassword" resultType="String">
+	   select PASSWORD  from user where ACCOUNT = #{account} or EMAIL = #{email}
+	   </select>
+	   
+	   <!-- 根据专业名字查询专业的id -->
+	   <select id="selectMajorId" resultType="int">
+	   select IFNULL(id,-1) from major where major_name = #{majorName}
+	   </select>
+	   
+	   
+	   
+	   
+	   <!-- 上传用户头像 -->
+	   <update id="uploadAVATARURL" parameterType="cn.xust.pojo.User">
+	   update user set AVATAR_URL=#{avatarUrl} where USERNAME = #{userName} and EMAIL = #{email} and PASSWORD = #{passWord}
+	   </update>
+	   
+	   
+	   <!-- 用于修改用户信息 -->
+	   <update id="updateUser" parameterType="cn.xust.pojo.User">
+	    update user
+	     <trim prefix="set" suffixOverrides=",">
+		  <if test="avatarUrl!=null">AVATAR_URL=#{avatarUrl},</if>
+		  <if test="userName!=null">USERNAME=#{userName},</if>
+		  <if test="email!=null">EMAIL=#{email},</if>
+		  <if test="role!=null">ROLE=#{role},</if>
+		 </trim>
+  		where UUID=#{uuid}
+	   </update>
+	   
+	
+</mapper>
